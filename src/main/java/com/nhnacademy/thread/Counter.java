@@ -13,6 +13,7 @@
 package com.nhnacademy.thread;
 
 import lombok.extern.slf4j.Slf4j;
+import java.lang.Thread;
 
 @Slf4j
 public class Counter {
@@ -21,11 +22,13 @@ public class Counter {
 
     public Counter(long countMaxSize) {
         //TODO#1 countMaxSize < 0 작다면 IllegalArgumentException 예외가 발생 합니다.
-
+        if(countMaxSize < 0) {
+            throw new IllegalArgumentException();
+        }
         //TODO#2 this.countMaxSize 초기화 합니다.
-
+        this.countMaxSize = countMaxSize;
         //TODO#3 this.count 값을 0으로 초기화 합니다.
-
+        this.count = 0;
     }
 
     public void run() {
@@ -36,14 +39,21 @@ public class Counter {
               Thread.sleep method를 사용하세요.
               https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Thread.html#sleep(java.time.Duration)
             */
-
-            count++;
+            try {
+                while (count < countMaxSize) {
+                    count++;
+                    Thread.sleep(1000);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             /*TODO#5 count 출력
                 name:{Thread name}, count:{count 변수}
                 Thread name : Thread.currentThread().getName();
                 ex) name:my-thread, count:1
              */
+            log.info("name: {}, count: {}", Thread.currentThread().getName(), count);
 
         }while (count<countMaxSize);
     }
