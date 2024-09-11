@@ -20,7 +20,6 @@ import java.util.Objects;
 @Slf4j
 public class CounterIncreaseHandler implements Runnable {
     private final SharedCounter sharedCounter;
-    long count = 0l;
 
     public CounterIncreaseHandler(SharedCounter sharedCounter) {
         //TODO#2-1 sharedCounter를 초기화 합니다.  sharedCounter가 null 이면 IllegalArgumentException이 발생 합니다.
@@ -37,7 +36,7 @@ public class CounterIncreaseHandler implements Runnable {
             try {
                 Thread.sleep(1000);
                 //TODO 2-3 sharedCounter의 count를 1증가 시키고 count값을 반환 합니다.
-                count++;
+                long count = sharedCounter.increaseAndGet();
 
                 log.debug("thread:{}, count:{}", Thread.currentThread().getName(), count);
             } catch (Exception e) {
