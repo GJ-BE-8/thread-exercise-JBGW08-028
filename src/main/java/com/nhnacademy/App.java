@@ -54,10 +54,12 @@ public class App
         }
 
         //TODO#10 main Thread는 threadA와 threadB의 상태가 terminated가 될 때 까지 대기 합니다. 즉 threadA, threadB가 종료될 때 까지 대기(양보) 합니다.
-        do {
-            Thread.yield();
-        }while (threadA.isAlive() && threadB.isAlive());
-
+        try {
+            threadA.join();
+            threadB.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         log.debug("System exit!");
     }

@@ -20,6 +20,7 @@ import java.util.Objects;
 @Slf4j
 public class CounterIncreaseHandler implements Runnable {
     private final SharedCounter sharedCounter;
+    long count = 0l;
 
     public CounterIncreaseHandler(SharedCounter sharedCounter) {
         //TODO#2-1 sharedCounter를 초기화 합니다.  sharedCounter가 null 이면 IllegalArgumentException이 발생 합니다.
@@ -36,7 +37,6 @@ public class CounterIncreaseHandler implements Runnable {
             try {
                 Thread.sleep(1000);
                 //TODO 2-3 sharedCounter의 count를 1증가 시키고 count값을 반환 합니다.
-                long count = 0l;
                 count++;
 
                 log.debug("thread:{}, count:{}", Thread.currentThread().getName(), count);
@@ -44,7 +44,7 @@ public class CounterIncreaseHandler implements Runnable {
                 log.debug("{} - interrupt!",Thread.currentThread().getName());
 
                 //TODO#2-4 현제 Thread에 interrupt()를 호출하여 interrput()를 발생 시킵 니다. 즉 현제 Thread의 interrupted 값이 -> true로 변경 됩니다. -> 즉 while 문을 종료하게 됩니다.
-                Thread.currentThread().interrupt();
+                Thread.currentThread().interrupt();     // true
             }
         }
     }
